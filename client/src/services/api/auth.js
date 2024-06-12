@@ -21,3 +21,14 @@ export const login = async (userCredential) => {
     throw new Error(error.response.data.message);
   }
 };
+
+export const logout = async () => {
+  const logoutURL = "/auth/logout";
+
+  try {
+    const { data } = await apiRequest.post(logoutURL);
+    console.log(data);
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};

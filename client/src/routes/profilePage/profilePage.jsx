@@ -1,8 +1,11 @@
 import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
 import "./profilePage.scss";
+import useProfilePage from "./useProfilePage";
 
 function ProfilePage() {
+  const { handleLogout } = useProfilePage();
+
   return (
     <div className="profilePage">
       <div className="details">
@@ -25,6 +28,7 @@ function ProfilePage() {
             <span>
               E-mail: <b>john@gmail.com</b>
             </span>
+            <button onClick={handleLogout}>Logout</button>
           </div>
           <div className="title">
             <h1>My List</h1>
@@ -39,7 +43,7 @@ function ProfilePage() {
       </div>
       <div className="chatContainer">
         <div className="wrapper">
-          <Chat/>
+          <Chat />
         </div>
       </div>
     </div>
