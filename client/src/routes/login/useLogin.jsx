@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/api/auth";
+import { saveUserToLocalStorage } from "../../utils/localStorage";
 
 const useLogin = () => {
   const [error, setError] = useState("");
@@ -15,7 +16,8 @@ const useLogin = () => {
     const password = formData.get("password");
     setLoading(true);
     try {
-      await login({ username, password });
+      const resData = await login({ username, password });
+      saveUserToLocalStorage(resData);
       setError("");
       navigate("/login");
     } catch (error) {

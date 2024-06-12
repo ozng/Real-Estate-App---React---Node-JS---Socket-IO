@@ -50,6 +50,8 @@ export const login = async (req, res) => {
       { expiresIn: experationDateSevenDay }
     );
 
+    const { password: userPassword, ...userInfo } = user;
+
     res
       .cookie("token", token, {
         httpOnly: true,
@@ -57,7 +59,7 @@ export const login = async (req, res) => {
         maxAge: experationDateSevenDay,
       })
       .status(200)
-      .json({ message: "successfully logged in" });
+      .json(userInfo);
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "Failed to login." });

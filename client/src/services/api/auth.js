@@ -16,7 +16,7 @@ export const login = async (userCredential) => {
 
   try {
     const { data } = await apiRequest.post(loginURL, userCredential);
-    console.log(data);
+    return data;
   } catch (error) {
     throw new Error(error.response.data.message);
   }
