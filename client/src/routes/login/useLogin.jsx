@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { register } from "../../services/api/auth";
+import { login } from "../../services/api/auth";
 
-const useRegister = () => {
+const useLogin = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -12,12 +12,10 @@ const useRegister = () => {
     const formData = new FormData(e.target);
 
     const username = formData.get("username");
-    const email = formData.get("email");
     const password = formData.get("password");
-
     setLoading(true);
     try {
-      await register({ username, email, password });
+      await login({ username, password });
       setError("");
       navigate("/login");
     } catch (error) {
@@ -33,4 +31,4 @@ const useRegister = () => {
   };
 };
 
-export default useRegister;
+export default useLogin;

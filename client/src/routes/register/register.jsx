@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useRegister from "./useRegister";
 
 function Register() {
-  const { error, handleSubmit } = useRegister();
+  const { error, loading, handleSubmit } = useRegister();
 
   return (
     <div className="register">
@@ -13,7 +13,7 @@ function Register() {
           <input name="username" type="text" placeholder="Username" />
           <input name="email" type="text" placeholder="Email" />
           <input name="password" type="password" placeholder="Password" />
-          <button>Register</button>
+          <button disabled={loading}>Register</button>
           {error ? <span>{error}</span> : null}
           <Link to="/login">Do you have an account?</Link>
         </form>
