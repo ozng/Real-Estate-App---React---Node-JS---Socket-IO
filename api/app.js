@@ -3,10 +3,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import postRoute from "./routes/post.route.js";
 import authRoute from "./routes/auth.route.js";
+import { clientURL } from "./constants/env.js";
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({ origin: clientURL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
