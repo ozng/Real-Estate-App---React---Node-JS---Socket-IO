@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { logout } from "../../services/api/auth";
 import { useNavigate } from "react-router-dom";
-import { removeUserInformationFromLocalStorage } from "../../utils/localStorage";
+import { AuthContext } from "../../context/AuthContext";
 
 const useProfilePage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { currentUser, updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ const useProfilePage = () => {
     setLoading(true);
     try {
       await logout();
-      removeUserInformationFromLocalStorage();
+      updateUser(null);
       navigate("/");
     } catch (error) {
       setError(error.message);
@@ -26,6 +27,8 @@ const useProfilePage = () => {
     error,
     loading,
     handleLogout,
+    currentUser,
+    updateUser,
   };
 };
 
