@@ -1,6 +1,9 @@
 import "./profileUpdatePage.scss";
+import useProfileUpdatePage from "./useProfileUpdatePage";
 
 function ProfileUpdatePage() {
+  const { currentUser, updateHandler } = useProfileUpdatePage();
+
   return (
     <div className="profileUpdatePage">
       <div className="formContainer">
@@ -12,6 +15,7 @@ function ProfileUpdatePage() {
               id="username"
               name="username"
               type="text"
+              defaultValue={currentUser.username}
             />
           </div>
           <div className="item">
@@ -20,17 +24,22 @@ function ProfileUpdatePage() {
               id="email"
               name="email"
               type="email"
+              defaultValue={currentUser.email}
             />
           </div>
           <div className="item">
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" />
           </div>
-          <button>Update</button>
+          <button onClick={updateHandler}>Update</button>
         </form>
       </div>
       <div className="sideContainer">
-        <img src="" alt="" className="avatar" />
+        <img
+          src={currentUser.avatar || "/noavatar.jpg"}
+          alt=""
+          className="avatar"
+        />
       </div>
     </div>
   );
