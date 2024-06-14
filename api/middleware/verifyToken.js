@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { jwtSecretKey } from "../constants/env";
+import { jwtSecretKey } from "../constants/env.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
