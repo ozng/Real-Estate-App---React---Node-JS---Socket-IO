@@ -2,12 +2,12 @@ import "./profileUpdatePage.scss";
 import useProfileUpdatePage from "./useProfileUpdatePage";
 
 function ProfileUpdatePage() {
-  const { currentUser, updateHandler } = useProfileUpdatePage();
+  const { currentUser, updateHandler, error } = useProfileUpdatePage();
 
   return (
     <div className="profileUpdatePage">
       <div className="formContainer">
-        <form>
+        <form onSubmit={updateHandler}>
           <h1>Update Profile</h1>
           <div className="item">
             <label htmlFor="username">Username</label>
@@ -31,7 +31,8 @@ function ProfileUpdatePage() {
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" />
           </div>
-          <button onClick={updateHandler}>Update</button>
+          <button>Update</button>
+          {error ? <span>{error}</span> : null}
         </form>
       </div>
       <div className="sideContainer">
