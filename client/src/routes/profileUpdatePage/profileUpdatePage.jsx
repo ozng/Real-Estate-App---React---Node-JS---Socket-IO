@@ -1,8 +1,11 @@
+import UploadWidget from "../../components/uploadWidget/UploadWidget";
+import { cloudinaryConfigs } from "../../config/cloudinary";
 import "./profileUpdatePage.scss";
 import useProfileUpdatePage from "./useProfileUpdatePage";
 
 function ProfileUpdatePage() {
-  const { currentUser, updateHandler, error } = useProfileUpdatePage();
+  const { currentUser, updateHandler, error, avatar, setAvatar } =
+    useProfileUpdatePage();
 
   return (
     <div className="profileUpdatePage">
@@ -36,11 +39,8 @@ function ProfileUpdatePage() {
         </form>
       </div>
       <div className="sideContainer">
-        <img
-          src={currentUser.avatar || "/noavatar.jpg"}
-          alt=""
-          className="avatar"
-        />
+        <img src={avatar || "/noavatar.jpg"} alt="" className="avatar" />
+        <UploadWidget uwConfig={cloudinaryConfigs} setAvatar={setAvatar} />
       </div>
     </div>
   );
