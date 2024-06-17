@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "console-ninja node --env-file .env --watch app.js"
+    "start": "console-ninja node --env-file .env --watch app.js",
+    "prisma-push": "npx prisma db push"
   },
   "keywords": [],
   "author": "",
