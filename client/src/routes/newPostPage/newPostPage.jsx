@@ -2,9 +2,18 @@ import "./newPostPage.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import useNewPostPage from "./useNewPostPage";
+import UploadWidget from "../../components/uploadWidget/UploadWidget";
+import { cloudinaryConfigs } from "../../config/cloudinary";
 
 function NewPostPage() {
-  const { setDescription, description, handleSubmit } = useNewPostPage();
+  const {
+    setDescription,
+    description,
+    handleSubmit,
+    error,
+    setImages,
+    images,
+  } = useNewPostPage();
 
   return (
     <div className="newPostPage">
@@ -111,10 +120,23 @@ function NewPostPage() {
               <input min={0} id="restaurant" name="restaurant" type="number" />
             </div>
             <button className="sendButton">Add</button>
+            {error ? <span>{error}</span> : null}
           </form>
         </div>
       </div>
-      <div className="sideContainer"></div>
+      <div className="sideContainer">
+        {images?.map((image, index) => (
+          <img src={image} alt="" key={index} />
+        ))}
+        <UploadWidget
+          uwConfig={{
+            ...cloudinaryConfigs,
+            multiple: true,
+            folder: "posts",
+          }}
+          setState={setImages}
+        />
+      </div>
     </div>
   );
 }

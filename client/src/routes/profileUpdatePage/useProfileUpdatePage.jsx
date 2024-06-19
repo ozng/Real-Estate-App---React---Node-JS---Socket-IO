@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const useProfileUpdatePage = () => {
   const [error, setError] = useState("");
   const { currentUser, updateUser } = useContext(AuthContext);
-  const [avatar, setAvatar] = useState(currentUser.avatar);
+  const [avatar, setAvatar] = useState([]);
 
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const useProfileUpdatePage = () => {
 
     const { username, email, password } = Object.fromEntries(formData);
 
-    const newUserData = { username, email, password, avatar };
+    const newUserData = { username, email, password, avatar: avatar[0] };
 
     try {
       const res = await updateUserData(currentUser.id, newUserData);
