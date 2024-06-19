@@ -1,12 +1,17 @@
 import "./newPostPage.scss";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import useNewPostPage from "./useNewPostPage";
 
 function NewPostPage() {
+  const { setDescription, description, handleSubmit } = useNewPostPage();
+
   return (
     <div className="newPostPage">
       <div className="formContainer">
         <h1>Add New Post</h1>
         <div className="wrapper">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="item">
               <label htmlFor="title">Title</label>
               <input id="title" name="title" type="text" />
@@ -21,6 +26,11 @@ function NewPostPage() {
             </div>
             <div className="item description">
               <label htmlFor="desc">Description</label>
+              <ReactQuill
+                onChange={setDescription}
+                value={description}
+                theme="snow"
+              />
             </div>
             <div className="item">
               <label htmlFor="city">City</label>
