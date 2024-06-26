@@ -1,4 +1,5 @@
 import apiRequest from "./apiRequest";
+import { defer } from "react-router-dom";
 
 export const singlePageLoader = async ({ request, params }) => {
   const response = await apiRequest("/post/" + params.id);
@@ -6,9 +7,11 @@ export const singlePageLoader = async ({ request, params }) => {
   return response.data;
 };
 
-export const listPageLoader = async ({ request, params }) => {
+export const listPageLoader = ({ request, params }) => {
   const query = request.url.split("?")[1];
-  const response = await apiRequest("/post?" + query);
+  const postPromise = apiRequest("/post?" + query);
 
-  return response.data;
+  return defer({
+    postResponse: postPromise,
+  });
 };
