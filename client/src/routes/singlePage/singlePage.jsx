@@ -1,11 +1,11 @@
 import "./singlePage.scss";
 import Slider from "../../components/slider/Slider";
 import Map from "../../components/map/Map";
-import { useLoaderData } from "react-router-dom";
 import Domprify from "dompurify";
+import useSinglePage from "./useSinglePage";
 
 function SinglePage() {
-  const post = useLoaderData();
+  const { handleSave, post, saved } = useSinglePage();
 
   return (
     <div className="singlePage">
@@ -117,9 +117,14 @@ function SinglePage() {
               <img src="/chat.png" alt="" />
               Send a Message
             </button>
-            <button>
+            <button
+              onClick={handleSave}
+              style={{
+                backgroundColor: saved ? "#fece51" : "white",
+              }}
+            >
               <img src="/save.png" alt="" />
-              Save the Place
+              {saved ? "Place saved" : "Save the Place"}
             </button>
           </div>
         </div>

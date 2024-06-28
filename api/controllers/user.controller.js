@@ -78,7 +78,7 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-export const savePost = async () => {
+export const savePost = async (req, res) => {
   const postId = req.body.postId;
   const tokenUserId = req.userId;
 

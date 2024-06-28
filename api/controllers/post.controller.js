@@ -41,7 +41,7 @@ export const getPost = async (req, res) => {
     });
 
     let userId;
-    const token = req.cookie.token;
+    const token = req?.cookies?.token;
 
     if (!token) {
       userId = null;

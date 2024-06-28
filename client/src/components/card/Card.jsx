@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./card.scss";
 
 function Card({ item }) {
-  return (
+  return item ? (
     <div className="card">
       <Link to={`/${item.id}`} className="imageContainer">
         <img src={item.images[0]} alt="" />
@@ -38,7 +38,7 @@ function Card({ item }) {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
 
 export default Card;
