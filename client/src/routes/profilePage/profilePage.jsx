@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Await, Link } from "react-router-dom";
 import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
 import "./profilePage.scss";
 import useProfilePage from "./useProfilePage";
+import { Suspense } from "react";
 
 function ProfilePage() {
-  const { handleLogout, currentUser } = useProfilePage();
+  const { handleLogout, currentUser, data } = useProfilePage();
 
   return (
     <div className="profilePage">
@@ -36,11 +37,25 @@ function ProfilePage() {
               <button>Create New Post</button>
             </Link>
           </div>
-          <List />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Error loading posts!</p>}
+            >
+              {(postResponse) => <List posts={postResponse.data.userPosts} />}
+            </Await>
+          </Suspense>
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          <List />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Error loading posts!</p>}
+            >
+              {(postResponse) => <List posts={postResponse.data.savedPosts} />}
+            </Await>
+          </Suspense>
         </div>
       </div>
       <div className="chatContainer">

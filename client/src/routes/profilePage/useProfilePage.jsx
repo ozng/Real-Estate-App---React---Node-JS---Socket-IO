@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { logout } from "../../services/api/auth";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const useProfilePage = () => {
+  const data = useLoaderData();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { currentUser, updateUser } = useContext(AuthContext);
@@ -29,6 +30,7 @@ const useProfilePage = () => {
     handleLogout,
     currentUser,
     updateUser,
+    data,
   };
 };
 
