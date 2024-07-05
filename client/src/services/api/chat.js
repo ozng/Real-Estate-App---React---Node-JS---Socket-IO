@@ -22,3 +22,14 @@ export const sendMessage = async (text, chatId) => {
     throw new Error(error.response.data.message);
   }
 };
+
+export const readMessage = async (chatId) => {
+  const readMessageUrl = `/chat/read/${chatId}`;
+
+  try {
+    const { data } = await apiRequest.put(readMessageUrl);
+    return data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};

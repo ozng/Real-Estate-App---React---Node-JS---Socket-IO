@@ -3,29 +3,30 @@ import useChat from "./useChat";
 import { format } from "timeago.js";
 
 function Chat({ chats }) {
-  const { handleOpenChat, chat, setChat, currentUser, handleSubmit } =
+  const { handleOpenChat, chat, setChat, currentUser, handleSubmit, socket } =
     useChat();
 
-  console.log(chat);
+  console.log(socket);
 
   return (
     <div className="chat">
       <div className="messages">
         <h1>Messages</h1>
-        {chats?.map((chat) => (
+        {chats?.map((c) => (
           <div
             className="message"
-            key={chat.id}
+            key={c.id}
             style={{
-              backgroundColor: chat.seenBy.includes(currentUser.id)
-                ? "white"
-                : "#fecd514e",
+              backgroundColor:
+                c.seenBy.includes(currentUser?.id) || chat?.id === c.id
+                  ? "white"
+                  : "#fecd514e",
             }}
-            onClick={() => handleOpenChat(chat.id, chat.receiver)}
+            onClick={() => handleOpenChat(c.id, c.receiver)}
           >
-            <img src={chat.receiver.avatar || "/noavatar.jpg"} alt="" />
-            <span>{chat.receiver.username}</span>
-            <p>{chat.lastMessage}</p>
+            <img src={c.receiver.avatar || "/noavatar.jpg"} alt="" />
+            <span>{c.receiver.username}</span>
+            <p>{c.lastMessage}</p>
           </div>
         ))}
       </div>
