@@ -3,10 +3,14 @@ import useChat from "./useChat";
 import { format } from "timeago.js";
 
 function Chat({ chats }) {
-  const { handleOpenChat, chat, setChat, currentUser, handleSubmit, socket } =
-    useChat();
-
-  console.log(socket);
+  const {
+    handleOpenChat,
+    chat,
+    setChat,
+    currentUser,
+    handleSubmit,
+    messageEndRef,
+  } = useChat();
 
   return (
     <div className="chat">
@@ -61,6 +65,7 @@ function Chat({ chats }) {
                 </div>
               );
             })}
+            <div ref={messageEndRef} />
           </div>
           <form onSubmit={handleSubmit} className="bottom">
             <textarea name="text"></textarea>

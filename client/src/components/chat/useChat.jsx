@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { fetchChat, readMessage, sendMessage } from "../../services/api/chat";
@@ -6,6 +6,7 @@ import { SocketContext } from "../../context/SocketContext";
 
 const useChat = () => {
   const [chat, setChat] = useState(null);
+  const messageEndRef = useRef(null);
 
   const { currentUser } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
@@ -26,6 +27,10 @@ const useChat = () => {
       socket.off("getMessage");
     };
   }, [socket, chat]);
+
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat]);
 
   const handleOpenChat = async (chatId, receiver) => {
     try {
@@ -66,7 +71,15 @@ const useChat = () => {
     }
   };
 
-  return { chat, setChat, currentUser, handleOpenChat, handleSubmit, socket };
+  return {
+    chat,
+    setChat,
+    currentUser,
+    handleOpenChat,
+    handleSubmit,
+    socket,
+    messageEndRef,
+  };
 };
 
 export default useChat;
