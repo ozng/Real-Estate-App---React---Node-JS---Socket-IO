@@ -112,7 +112,7 @@ export const savePost = async (req, res) => {
 };
 
 export const profilePosts = async (req, res) => {
-  const tokenUserId = req.params.userId;
+  const tokenUserId = req.userId;
 
   try {
     const userPosts = await prisma.post.findMany({
@@ -135,5 +135,29 @@ export const profilePosts = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Failed to get user posts!" });
+  }
+};
+
+export const getNotificationNumber = async (req, res) => {
+  const tokenUserId = req.userId;
+
+  try {
+    const numberOfUnSeenMessages = await prisma.chat.count({
+      where: {
+        userIds: {
+          hasSome: [tokenUserId],
+        },
+        NOT: {
+          seenBy: {
+            hasSome: [tokenUserId],
+          },
+        },
+      },
+    });
+
+    res.status(200).json(numberOfUnSeenMessages);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to get user notification!" });
   }
 };

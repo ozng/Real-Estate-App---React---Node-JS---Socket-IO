@@ -8,3 +8,9 @@ export const updateUserData = async (userID, newUserData) => {
     throw new Error(error.response.data.message);
   }
 };
+
+export const userNotification = async () => {
+  const res = await apiRequest("/user/notification");
+
+  return res.data;
+};

@@ -3,10 +3,13 @@ import { useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { fetchChat, readMessage, sendMessage } from "../../services/api/chat";
 import { SocketContext } from "../../context/SocketContext";
+import { useNotificationStore } from "../../lib/notificationStore";
 
 const useChat = () => {
   const [chat, setChat] = useState(null);
   const messageEndRef = useRef(null);
+
+  const decrease = useNotificationStore((state) => state.decrease);
 
   const { currentUser } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
@@ -35,6 +38,10 @@ const useChat = () => {
   const handleOpenChat = async (chatId, receiver) => {
     try {
       const chat = await fetchChat(chatId);
+
+      if (!chat?.seenBy?.includes(currentUser.id)) {
+        decrease();
+      }
 
       setChat({ ...chat, receiver });
     } catch (error) {
